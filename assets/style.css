@@ -1,0 +1,13 @@
+body {
+  background-image: linear-gradient(#ddd6f3, #faaca8);
+
+  /* background-image: linear-gradient(#43cea2, #185a9d); */
+
+  /* #4568dc → #b06ab3 */
+
+  /* #89f7fe → #66a6ff */
+}
+
+.result_container {
+  background-image: linear-gradient(#89f7fe, #66a6ff);
+}
