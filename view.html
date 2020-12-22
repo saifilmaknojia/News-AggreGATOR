@@ -37,7 +37,14 @@
           />
         </div>
         <div class="col-3 d-grid">
-          <button type="button" class="btn btn-dark" width="100%" onclick="formSearchString()">Search</button>
+          <button
+            type="button"
+            class="btn btn-dark"
+            width="100%"
+            onclick="formSearchString()"
+          >
+            Search
+          </button>
         </div>
       </div>
       <div class="row">
@@ -50,7 +57,9 @@
             id="sort_by"
             aria-label="Default select example"
           >
-            <option selected disabled value="relevancy">-- Select one --</option>
+            <option selected disabled value="relevancy">
+              -- Select one --
+            </option>
             <option value="date">Date</option>
             <option value="relevancy">Best Match</option>
             <option value="rank">Higher Ranked Sources First</option>
@@ -58,7 +67,7 @@
         </div>
         <div class="col-4">
           <label for="topic" class="col-4 col-form-label control-label"
-            >Topic: 
+            >Topic:
           </label>
           <select
             class="form-select col-8 form-control"
@@ -87,18 +96,16 @@
             id="last_n_days"
             aria-label="Default select example"
           >
-            <option selected disabled value="empty"> Default (7 days) </option>
+            <option selected disabled value="empty">Default (7 days)</option>
             <option value="3">3 days</option>
             <option value="10">10 days</option>
             <option value="30">30 days</option>
             <option value="90">3 months</option>
           </select>
         </div>
-        </div>
-        <div class="row mt-3">
-          <div class="rounded result_container" id="result_container">
-          </div>
-        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="rounded result_container" id="result_container"></div>
       </div>
     </div>
 

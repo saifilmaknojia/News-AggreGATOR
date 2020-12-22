@@ -19,10 +19,39 @@ function getData(search_params) {
 }
 
 function workWithData(api_data) {
-  console.log("Got the data now ", api_data);
-  document.getElementById("result_container").innerHTML = JSON.stringify(
-    api_data
-  );
+  // console.log("Got the data now ", api_data);
+
+  const articles = api_data.articles;
+  const element = document.getElementById("result_container");
+  // console.log(articles);
+  const len = articles.length;
+
+  for (var i = 0; i < len; i++) {
+    var obj = articles[i];
+
+    const title = obj["title"];
+    const author = obj["author"];
+    const summary = obj["summary"];
+    const published_date = obj["published_date"];
+    const article_link = obj["link"];
+    const article_media =
+      "media" in obj && obj["media"] != null
+        ? obj["media"]
+        : "./assets/no-thumbnail.jpg";
+
+    let form_html_component = `<div class="post_container mb-3"> <div class="row">  
+    <div class="col-3 mb-3 mt-3"> 
+    <img src = ${article_media} class="mt-3 ms-3 article_media"  alt="article_media" /> </div>
+    <div class="col-9 mb-3 mt-3"> 
+    <h3 class="title"> ${title} </h3> 
+    <i><b><u> By ${author} published on ${published_date} </u></b></i>
+    <p class="summary mt-2"> ${summary} </p>
+    <a href="${article_link}" target="_blank"
+                  >Continued Here » ${article_link}</a>
+    </div></div></div> `;
+    //   "<div class='post_container'>" + title + "  </div>";
+    element.insertAdjacentHTML("afterend", form_html_component);
+  }
 }
 
 function formSearchString() {
@@ -62,6 +91,7 @@ function formSearchString() {
 
   search_string.append("media", "True");
   search_string.append("ranked_only", "True");
+  search_string.append("lang", "en");
 
   // search_string.append("sources", [
   //   "washingtontimes.com",
@@ -71,10 +101,8 @@ function formSearchString() {
   // ]);
 
   // alert(search_string.toString());
-  getData(search_string.toString());
-
-  // for (i = 1; i <= 10; i++) {
-  //   search_string.set("page", i);
-  //   getData(search_string.toString());
-  // }
+  for (i = 1; i <= 5; i++) {
+    search_string.set("page", i);
+    getData(search_string.toString());
+  }
 }
