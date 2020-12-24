@@ -1,5 +1,3 @@
-var result_obj = {};
-
 function getData(search_params) {
   var url = new URL("https://newscatcher.p.rapidapi.com/v1/search");
   url.search = search_params;
@@ -7,7 +5,7 @@ function getData(search_params) {
   fetch(url, {
     method: "GET",
     headers: {
-      "x-rapidapi-key": "d12f10100bmsh46996f03b09b67fp121b1ejsnbd8566509c22",
+      "x-rapidapi-key": config.apiKey,
       "x-rapidapi-host": "newscatcher.p.rapidapi.com",
     },
   })
@@ -19,8 +17,19 @@ function getData(search_params) {
 }
 
 function workWithData(api_data) {
-  // console.log("Got the data now ", api_data);
-
+  console.log("Got the data now ", api_data);
+  if (
+    "message" in api_data &&
+    api_data.message ==
+      "You have exceeded the rate limit per hour for your plan, BASIC, by the API provider"
+  ) {
+    alert(
+      "Apologies! The API limit for free basic plan is exceeded, try again after 1 hour, Thank you!"
+    );
+    throw new Error(
+      "You have exceeded the rate limit per hour for your plan, BASIC, by the API provider"
+    );
+  }
   const articles = api_data.articles;
   const element = document.getElementById("result_container");
   // console.log(articles);
@@ -44,20 +53,20 @@ function workWithData(api_data) {
     <img src = ${article_media} class="mt-3 ms-3 article_media"  alt="article_media" /> </div>
     <div class="col-9 mb-3 mt-3"> 
     <h3 class="title"> ${title} </h3> 
-    <i><b><u> By ${author} published on ${published_date} </u></b></i>
+    <i><b><u> Published By - ${author} <br> On - ${published_date} <br> Score - ${obj["_score"]} </u></b></i>
     <p class="summary mt-2"> ${summary} </p>
     <a href="${article_link}" target="_blank"
                   >Continued Here » ${article_link}</a>
     </div></div></div> `;
     //   "<div class='post_container'>" + title + "  </div>";
-    element.insertAdjacentHTML("afterend", form_html_component);
+    element.insertAdjacentHTML("beforeend", form_html_component);
   }
 }
 
 function formSearchString() {
   // alert("clicked");
-  let search_string = new URLSearchParams();
-
+  document.getElementById("result_container").innerHTML = "";
+  const search_string = new URLSearchParams();
   let query_string = document.getElementById("search").value;
   query_string = query_string.trim();
   if (query_string == "") {
