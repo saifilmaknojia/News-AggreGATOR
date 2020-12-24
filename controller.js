@@ -48,8 +48,8 @@ function workWithData(api_data, search_paramas, next_page) {
         : "./assets/no-thumbnail.jpg";
 
     let form_html_component = `<div class="post_container mb-3"> <div class="row">  
-    <div class="col-3 mb-3 mt-3"> 
-    <img src = ${article_media} class="mt-3 ms-3 article_media"  alt="article_media" /> </div>
+    <div class="col-3 align-self-center text-center"> 
+    <img src = ${article_media} class="ms-3 article_media"  alt="article_media" /> </div>
     <div class="col-9 mb-3 mt-3"> 
     <h3 class="title"> ${title} </h3> 
     <i><b><u> Published By - ${author} <br> On - ${published_date} <br> Score - ${obj["_score"]} </u></b></i>
