@@ -1,7 +1,6 @@
-function getData(search_params) {
+function getData(search_params, next_page) {
   var url = new URL("https://newscatcher.p.rapidapi.com/v1/search");
-  url.search = search_params;
-
+  url.search = search_params.toString();
   fetch(url, {
     method: "GET",
     headers: {
@@ -10,14 +9,14 @@ function getData(search_params) {
     },
   })
     .then((response) => response.json())
-    .then((json) => workWithData(json))
+    .then((json) => workWithData(json, search_params, next_page))
     .catch((err) => {
       console.error(err);
     });
 }
 
-function workWithData(api_data) {
-  console.log("Got the data now ", api_data);
+function workWithData(api_data, search_paramas, next_page) {
+  console.log("Got the data ", api_data);
   if (
     "message" in api_data &&
     api_data.message ==
@@ -61,6 +60,7 @@ function workWithData(api_data) {
     //   "<div class='post_container'>" + title + "  </div>";
     element.insertAdjacentHTML("beforeend", form_html_component);
   }
+  callbackFetchNextPage(search_paramas, next_page);
 }
 
 function formSearchString() {
@@ -102,16 +102,12 @@ function formSearchString() {
   search_string.append("ranked_only", "True");
   search_string.append("lang", "en");
 
-  // search_string.append("sources", [
-  //   "washingtontimes.com",
-  //   "standard.co.uk",
-  //   "mirror.co.uk",
-  //   "bbc.co.uk",
-  // ]);
+  callbackFetchNextPage(search_string, 1);
+}
 
-  // alert(search_string.toString());
-  for (i = 1; i <= 5; i++) {
-    search_string.set("page", i);
-    getData(search_string.toString());
-  }
+function callbackFetchNextPage(search, page_number) {
+  if (page_number > 5) return;
+
+  search.set("page", page_number);
+  getData(search, page_number + 1);
 }
