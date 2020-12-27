@@ -1,6 +1,8 @@
-News Aggregator project to fetch news by searching the entered keywords using basic plan of Newscatcher public API.
+News Aggregator project - https://news-aggregator-sail.herokuapp.com/ 
 
-Features include
+- To fetch news by searching the entered keywords using basic plan of Newscatcher public API.
+
+<b>Features include</b>
 
 1. Search required keywords
 2. Sort by Date, Rank, Higher ranked resources first
