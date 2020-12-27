@@ -21,7 +21,7 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container-md">
       <!-- Content here -->
       <div class="row mt-5">
         <div class="col-sm text-center">
@@ -29,7 +29,7 @@
         </div>
       </div>
       <div class="row mb-1 mt-2">
-        <div class="col-9">
+        <div class="col-md-9">
           <input
             type="text"
             class="form-control"
@@ -38,10 +38,10 @@
             required
           />
         </div>
-        <div class="col-3 d-grid">
+        <div class="col-md-3">
           <button
             type="button"
-            class="btn btn-dark"
+            class="btn btn-dark btn-block"
             width="100%"
             onclick="formSearchString()"
           >
@@ -49,13 +49,15 @@
           </button>
         </div>
       </div>
-      <div class="row">
-        <div class="col-4 form-group">
-          <label for="sort_by" class="col-4 col-form-label control-label"
-            >Sort by:
-          </label>
+      <div class="form-group row mt-3">
+        <label
+          for="sort_by"
+          class="col-md-1 filter_labels align-self-center text-right h5"
+          >Sort by:
+        </label>
+        <div class="col-md-3">
           <select
-            class="form-select col-8 form-control"
+            class="form-control"
             id="sort_by"
             aria-label="Default select example"
           >
@@ -67,12 +69,14 @@
             <option value="rank">Higher Ranked Sources First</option>
           </select>
         </div>
-        <div class="col-4">
-          <label for="topic" class="col-4 col-form-label control-label"
-            >Topic:
-          </label>
+        <label
+          for="topic"
+          class="col-md-1 filter_labels align-self-center text-right h5"
+          >Topic:
+        </label>
+        <div class="col-md-3">
           <select
-            class="form-select col-8 form-control"
+            class="form-control"
             id="topic"
             aria-label="Default select example"
           >
@@ -89,12 +93,15 @@
             <option value="entertainment">Entertainment</option>
           </select>
         </div>
-        <div class="col-4">
-          <label for="last_n_days" class="col-4 col-form-label control-label"
-            >From Last:
-          </label>
+
+        <label
+          for="last_n_days"
+          class="col-md-1 filter_labels align-self-center text-right h5"
+          >Last:
+        </label>
+        <div class="col-md-3">
           <select
-            class="form-select col-8 form-control"
+            class="form-control"
             id="last_n_days"
             aria-label="Default select example"
           >
@@ -104,19 +111,6 @@
             <option value="30">30 days</option>
             <option value="90">3 months</option>
           </select>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="inputPassword" class="col-md-1 align-self-center blockquote"
-          >Password:
-        </label>
-        <div class="col-md-3">
-          <input
-            type="password"
-            class="form-control"
-            id="inputPassword"
-            placeholder="Password"
-          />
         </div>
       </div>
       <div class="row mt-3">

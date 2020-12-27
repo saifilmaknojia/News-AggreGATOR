@@ -24,3 +24,8 @@ p {
   height: auto;
   border-radius: 0.5rem;
 }
+
+.filter_labels {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
