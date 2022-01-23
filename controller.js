@@ -16,7 +16,7 @@ function getData(search_params, next_page) {
 }
 
 function workWithData(api_data, search_paramas, next_page) {
-  console.log("Got the data ", api_data);
+  // console.log("Got the data ", api_data);
   if (
     "message" in api_data &&
     api_data.message ==

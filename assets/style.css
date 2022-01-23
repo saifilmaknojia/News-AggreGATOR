@@ -16,6 +16,11 @@ body {
   border-radius: 0.5rem;
 }
 
+.post_container:hover {
+  transform: scale(1.05);
+  transition: 300ms linear;
+}
+
 p {
   font-size: 1.1rem;
 }
