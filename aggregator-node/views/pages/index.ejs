@@ -1,109 +1,106 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <%- include('../partials/head'); %>
-  </head>
+<head>
+  <%- include('../partials/head'); %>
+</head>
 
-  <body class="container">
-    <main>
-      <div class="container-md">
-        <!-- Content here -->
-        <div class="row mt-5">
-          <div class="col-sm text-center">
-            <h3>News AggreGATOR!</h3>
-          </div>
-        </div>
-        <div class="row mb-1 mt-2">
-          <div class="col-md-9">
-            <input
-              type="text"
-              class="form-control"
-              id="search"
-              placeholder="Enter Search String"
-              required
-            />
-          </div>
-          <div class="col-md-3">
-            <button
-              type="button"
-              class="btn btn-dark btn-block"
-              width="100%"
-              onclick="formSearchString()"
-            >
-              Search
-            </button>
-          </div>
-        </div>
-        <div class="form-group row mt-3">
-          <label
-            for="sort_by"
-            class="col-md-1 filter_labels align-self-center text-right h5"
-            >Sort by:
-          </label>
-          <div class="col-md-3">
-            <select
-              class="form-control"
-              id="sort_by"
-              aria-label="Default select example"
-            >
-              <option selected disabled value="relevancy">
-                -- Select one --
-              </option>
-              <option value="date">Date</option>
-              <option value="relevancy">Best Match</option>
-              <option value="rank">Higher Ranked Sources First</option>
-            </select>
-          </div>
-          <label
-            for="topic"
-            class="col-md-1 filter_labels align-self-center text-right h5"
-            >Topic:
-          </label>
-          <div class="col-md-3">
-            <select
-              class="form-control"
-              id="topic"
-              aria-label="Default select example"
-            >
-              <option selected disabled value="all">-- Select one --</option>
-              <option value="all">All</option>
-              <option value="news">News</option>
-              <option value="sport">Sport</option>
-              <option value="tech">Tech</option>
-              <option value="world">World</option>
-              <option value="finance">Finance</option>
-              <option value="politic">Politics</option>
-              <option value="business">Business</option>
-              <option value="economics">Economics</option>
-              <option value="entertainment">Entertainment</option>
-            </select>
-          </div>
-
-          <label
-            for="last_n_days"
-            class="col-md-1 filter_labels align-self-center text-right h5"
-            >Last:
-          </label>
-          <div class="col-md-3">
-            <select
-              class="form-control"
-              id="last_n_days"
-              aria-label="Default select example"
-            >
-              <option selected disabled value="empty">Default (7 days)</option>
-              <option value="3">3 days</option>
-              <option value="10">10 days</option>
-              <option value="30">30 days</option>
-              <option value="90">3 months</option>
-            </select>
-          </div>
-        </div>
-        <div class="row mt-3">
-          <div class="rounded result_container" id="result_container"></div>
+<body class="container">
+  <main>
+    <div class="container-md">
+      <!-- Content here -->
+      <div class="row mt-5">
+        <div class="col-sm text-center">
+          <h3>News AggreGATOR!</h3>
         </div>
       </div>
-    </main>
-  </body>
+      <div class="row mb-1 mt-2">
+        <div class="col-md-9">
+          <input
+            type="text"
+            class="form-control"
+            id="search"
+            placeholder="Enter Search String"
+            required
+          />
+        </div>
+        <div class="col-md-3">
+          <button
+            type="button"
+            class="btn btn-dark btn-block"
+            width="100%"
+            onclick="formSearchString()"
+          >
+            Search
+          </button>
+        </div>
+      </div>
+      <div class="form-group row mt-3">
+        <label
+          for="sort_by"
+          class="col-md-1 filter_labels align-self-center text-right h5"
+          >Sort by:
+        </label>
+        <div class="col-md-3">
+          <select
+            class="form-control"
+            id="sort_by"
+            aria-label="Default select example"
+          >
+            <option selected disabled value="relevancy">
+              -- Select one --
+            </option>
+            <option value="date">Date</option>
+            <option value="relevancy">Best Match</option>
+            <option value="rank">Higher Ranked Sources First</option>
+          </select>
+        </div>
+        <label
+          for="topic"
+          class="col-md-1 filter_labels align-self-center text-right h5"
+          >Topic:
+        </label>
+        <div class="col-md-3">
+          <select
+            class="form-control"
+            id="topic"
+            aria-label="Default select example"
+          >
+            <option selected disabled value="all">-- Select one --</option>
+            <option value="all">All</option>
+            <option value="news">News</option>
+            <option value="sport">Sport</option>
+            <option value="tech">Tech</option>
+            <option value="world">World</option>
+            <option value="finance">Finance</option>
+            <option value="politic">Politics</option>
+            <option value="business">Business</option>
+            <option value="economics">Economics</option>
+            <option value="entertainment">Entertainment</option>
+          </select>
+        </div>
 
-  <footer><%- include('../partials/footer'); %></footer>
-</html>
+        <label
+          for="last_n_days"
+          class="col-md-1 filter_labels align-self-center text-right h5"
+          >Last:
+        </label>
+        <div class="col-md-3">
+          <select
+            class="form-control"
+            id="last_n_days"
+            aria-label="Default select example"
+          >
+            <option selected disabled value="empty">Default (7 days)</option>
+            <option value="3">3 days</option>
+            <option value="10">10 days</option>
+            <option value="30">30 days</option>
+            <option value="90">3 months</option>
+          </select>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="rounded result_container" id="result_container"></div>
+      </div>
+    </div>
+  </main>
+</body>
+
+<footer><%- include('../partials/footer'); %></footer>
