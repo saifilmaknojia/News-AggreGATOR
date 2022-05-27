@@ -45,7 +45,7 @@ function workWithData(api_data, search_paramas, next_page) {
     const article_media =
       "media" in obj && obj["media"] != null
         ? obj["media"]
-        : "./assets/no-thumbnail.jpg";
+        : "../images/no-thumbnail.jpg";
 
     let form_html_component = `<div class="post_container mb-3"> <div class="row">  
     <div class="col-3 align-self-center text-center"> 
