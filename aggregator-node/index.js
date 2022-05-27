@@ -29,7 +29,13 @@ app.get("/news", function (req, res) {
 // POST /login gets urlencoded bodies
 app.post("/news", urlencodedParser, function (req, res) {
   console.log("hello world");
-  res.send("welcome, " + req.body.search);
+  res.send(
+    "welcome, " +
+      req.body.search +
+      req.body.topic +
+      req.body.last_n_days +
+      req.body.sort_by
+  );
 });
 
 app.listen(port, function () {
