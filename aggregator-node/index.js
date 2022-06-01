@@ -1,4 +1,4 @@
-// const http = require("http");
+const controller = require("./assets/js/node_controller");
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
@@ -28,7 +28,7 @@ app.get("/news", function (req, res) {
 
 // POST /login gets urlencoded bodies
 app.post("/news", urlencodedParser, function (req, res) {
-  console.log("hello world");
+  controller.formSearchString(req.body);
   res.send(
     "welcome, " +
       req.body.search +
