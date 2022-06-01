@@ -17,9 +17,28 @@ async function getData(search_params, next_page) {
     .then((json) => {
       return workWithData(json, search_params, next_page);
     })
-    .then((data) => {
-      finalJsonResult.push(data);
-      //  console.log(finalJsonResult.length);
+    .then((articles) => {
+      for (var i = 0; i < articles.length; i++) {
+        // clean the data and form the article to push it on the stack
+        var obj = articles[i];
+
+        const cleaned_article_media =
+          "media" in obj && obj["media"] != null
+            ? obj["media"]
+            : "../images/no-thumbnail.jpg";
+
+        var cleaned_article = {
+          title: obj["title"],
+          author: obj["author"],
+          summary: obj["summary"],
+          published_date: obj["published_date"],
+          article_link: obj["link"],
+          article_media: cleaned_article_media,
+          score: obj["_score"],
+        };
+
+        finalJsonResult.push(cleaned_article);
+      }
     })
     .catch((err) => {
       console.error(err);
@@ -33,9 +52,9 @@ async function workWithData(api_data, search_paramas, next_page) {
     api_data.message ==
       "You have exceeded the rate limit per hour for your plan, BASIC, by the API provider"
   ) {
-    // console.log(
-    //   "Apologies! The API limit for free basic plan is exceeded, try again after 1 hour, Thank you!"
-    // );
+    console.log(
+      "Apologies! The API limit for free basic plan is exceeded, try again after 1 hour, Thank you!"
+    );
     throw new Error(
       "You have exceeded the rate limit per hour for your plan, BASIC, by the API provider"
     );
@@ -58,18 +77,18 @@ async function workWithData(api_data, search_paramas, next_page) {
   //         ? obj["media"]
   //         : "../images/no-thumbnail.jpg";
 
-  //     let form_html_component = `<div class="post_container mb-3"> <div class="row">
-  //       <div class="col-3 align-self-center text-center">
-  //       <img src = ${article_media} class="ms-3 article_media"  alt="article_media" /> </div>
-  //       <div class="col-9 mb-3 mt-3">
-  //       <h3 class="title"> ${title} </h3>
-  //       <i><b><u> Published By - ${author} <br> On - ${published_date} <br> Score - ${obj["_score"]} </u></b></i>
-  //       <p class="summary mt-2"> ${summary} </p>
-  //       <a href="${article_link}" target="_blank"
-  //                     >Continued Here » ${article_link}</a>
-  //       </div></div></div> `;
-  //     //   "<div class='post_container'>" + title + "  </div>";
-  //     //  element.insertAdjacentHTML("beforeend", form_html_component);
+  let form_html_component = `<div class="post_container mb-3"> <div class="row">
+        <div class="col-3 align-self-center text-center">
+        <img src = ${article_media} class="ms-3 article_media"  alt="article_media" /> </div>
+        <div class="col-9 mb-3 mt-3">
+        <h3 class="title"> ${title} </h3>
+        <i><b><u> Published By - ${author} <br> On - ${published_date} <br> Score - ${obj["_score"]} </u></b></i>
+        <p class="summary mt-2"> ${summary} </p>
+        <a href="${article_link}" target="_blank"
+                      >Continued Here » ${article_link}</a>
+        </div></div></div> `;
+  //   "<div class='post_container'>" + title + "  </div>";
+  //  element.insertAdjacentHTML("beforeend", form_html_component);
 
   //     console.log(form_html_component);
   // }
@@ -127,7 +146,6 @@ async function fetchResults(search) {
     await getData(search, page_number);
     // console.log(finalJsonResult);
   }
-  console.log("Finished 5 requests");
 }
 
 module.exports = {

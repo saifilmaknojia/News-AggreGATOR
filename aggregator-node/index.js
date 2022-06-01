@@ -23,21 +23,15 @@ app.get("/", (req, res) => {
 
 // News page
 app.get("/news", function (req, res) {
-  res.render("pages/index");
+  res.render("pages/index", { articles: [] });
 });
 
 // POST /login gets urlencoded bodies
 app.post("/news", urlencodedParser, async function (req, res) {
-  let gotback = await controller.formSearchString(req.body);
-  console.log("got back", gotback);
-
-  res.send(
-    "welcome, " +
-      req.body.search +
-      req.body.topic +
-      req.body.last_n_days +
-      req.body.sort_by
-  );
+  let articles_json = await controller.formSearchString(req.body);
+  res.render("pages/index", {
+    articles: articles_json,
+  });
 });
 
 app.listen(port, function () {

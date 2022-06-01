@@ -96,7 +96,37 @@
         </div>
       </form>
       <div class="row mt-3">
-        <div class="rounded result_container" id="result_container"></div>
+        <div class="rounded result_container" id="result_container">
+          <% articles.forEach(function(article) { %>
+          <div class="post_container mb-3">
+            <div class="row">
+              <div class="col-3 align-self-center text-center">
+                <img
+                  src="<%= article.article_media %>"
+                  class="ms-3 article_media"
+                  alt="article_media"
+                />
+              </div>
+              <div class="col-9 mb-3 mt-3">
+                <h3 class="title"><%= article.title %></h3>
+                <i
+                  ><b
+                    ><u>
+                      Published By - <%= article.author %> <br />
+                      On - <%= article.published_date %> <br />
+                      Score - <%= article.score %>
+                    </u></b
+                  ></i
+                >
+                <p class="summary mt-2"><%= article.summary %></p>
+                <a href="<%= article.article_link %>" target="_blank"
+                  >Continued Here » <%= article.article_link %></a
+                >
+              </div>
+            </div>
+          </div>
+          <% }); %>
+        </div>
       </div>
     </div>
   </main>
