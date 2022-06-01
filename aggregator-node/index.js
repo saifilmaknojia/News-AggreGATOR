@@ -27,8 +27,10 @@ app.get("/news", function (req, res) {
 });
 
 // POST /login gets urlencoded bodies
-app.post("/news", urlencodedParser, function (req, res) {
-  controller.formSearchString(req.body);
+app.post("/news", urlencodedParser, async function (req, res) {
+  let gotback = await controller.formSearchString(req.body);
+  console.log("got back", gotback);
+
   res.send(
     "welcome, " +
       req.body.search +
