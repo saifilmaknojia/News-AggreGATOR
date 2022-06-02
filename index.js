@@ -2,7 +2,7 @@ const controller = require("./assets/js/node_controller");
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const port = 3000;
+const port = process.env.PORT || 8000;
 
 app.use(express.static(__dirname + "/assets/"));
 app.use(express.static(__dirname + "/js"));
