@@ -18,7 +18,7 @@ app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
   // res.send("Hello World!");
-  res.sendFile("view.html", { root: __dirname });
+  res.render("pages/index", { articles: [] });
 });
 
 // News page
@@ -26,7 +26,7 @@ app.get("/news", function (req, res) {
   res.render("pages/index", { articles: [] });
 });
 
-// POST /login gets urlencoded bodies
+// POST /news gets urlencoded bodies
 app.post("/news", urlencodedParser, async function (req, res) {
   let articles_json = await controller.formSearchString(req.body);
   res.render("pages/index", {
