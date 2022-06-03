@@ -2,7 +2,7 @@ const controller = require("./assets/js/node_controller");
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 3000;
 
 app.use(express.static(__dirname + "/assets/"));
 app.use(express.static(__dirname + "/js"));
@@ -17,7 +17,6 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-  // res.send("Hello World!");
   res.render("pages/index", { articles: [] });
 });
 
@@ -29,6 +28,7 @@ app.get("/news", function (req, res) {
 // POST /news gets urlencoded bodies
 app.post("/news", urlencodedParser, async function (req, res) {
   let articles_json = await controller.formSearchString(req.body);
+  console.log(articles_json.length);
   res.render("pages/index", {
     articles: articles_json,
   });

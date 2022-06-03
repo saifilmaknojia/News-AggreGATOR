@@ -1,23 +1,26 @@
-const fetch = require("node-fetch");
+const axios = require("axios");
 const { config } = require("./config.js");
 
 var finalJsonResult = [];
 
 async function getData(search_params, next_page) {
-  var url = new URL("https://newscatcher.p.rapidapi.com/v1/search");
-  url.search = search_params.toString();
-  await fetch(url, {
+  const options = {
     method: "GET",
+    url: "https://newscatcher.p.rapidapi.com/v1/search",
+    params: search_params,
     headers: {
-      "x-rapidapi-key": config.apiKey,
-      "x-rapidapi-host": "newscatcher.p.rapidapi.com",
+      "X-RapidAPI-Host": "newscatcher.p.rapidapi.com",
+      "X-RapidAPI-Key": "d12f10100bmsh46996f03b09b67fp121b1ejsnbd8566509c22",
     },
-  })
-    .then((response) => response.json())
-    .then((json) => {
-      return workWithData(json, search_params, next_page);
+  };
+
+  await axios
+    .request(options)
+    .then((response) => {
+      return parseResponse(response.data);
     })
     .then((articles) => {
+      //  console.log(articles);
       for (var i = 0; i < articles.length; i++) {
         // clean the data and form the article to push it on the stack
         var obj = articles[i];
@@ -36,7 +39,7 @@ async function getData(search_params, next_page) {
           article_media: cleaned_article_media,
           score: obj["_score"],
         };
-
+        //  console.log(cleaned_article);
         finalJsonResult.push(cleaned_article);
       }
     })
@@ -45,8 +48,7 @@ async function getData(search_params, next_page) {
     });
 }
 
-async function workWithData(api_data, search_paramas, next_page) {
-  // console.log("Got the data ", api_data);
+async function parseResponse(api_data) {
   if (
     "message" in api_data &&
     api_data.message ==
@@ -60,43 +62,14 @@ async function workWithData(api_data, search_paramas, next_page) {
     );
   }
   const articles = api_data.articles;
-  //  const element = document.getElementById("result_container");
+
   return articles;
-  //   const len = articles.length;
-
-  //   for (var i = 0; i < len; i++) {
-  //     var obj = articles[i];
-
-  //     const title = obj["title"];
-  //     const author = obj["author"];
-  //     const summary = obj["summary"];
-  //     const published_date = obj["published_date"];
-  //     const article_link = obj["link"];
-  //     const article_media =
-  //       "media" in obj && obj["media"] != null
-  //         ? obj["media"]
-  //         : "../images/no-thumbnail.jpg";
-
-  let form_html_component = `<div class="post_container mb-3"> <div class="row">
-        <div class="col-3 align-self-center text-center">
-        <img src = ${article_media} class="ms-3 article_media"  alt="article_media" /> </div>
-        <div class="col-9 mb-3 mt-3">
-        <h3 class="title"> ${title} </h3>
-        <i><b><u> Published By - ${author} <br> On - ${published_date} <br> Score - ${obj["_score"]} </u></b></i>
-        <p class="summary mt-2"> ${summary} </p>
-        <a href="${article_link}" target="_blank"
-                      >Continued Here » ${article_link}</a>
-        </div></div></div> `;
-  //   "<div class='post_container'>" + title + "  </div>";
-  //  element.insertAdjacentHTML("beforeend", form_html_component);
-
-  //     console.log(form_html_component);
-  // }
 }
 
 async function formSearchString(body) {
-  // alert("clicked");
-  // document.getElementById("result_container").innerHTML = "";
+  // reset the finalResultJson array so that new requests don't get the older results
+  finalJsonResult = [];
+
   const search_string = new URLSearchParams();
   let query_string = body.search;
   query_string = query_string.trim();
@@ -131,26 +104,22 @@ async function formSearchString(body) {
   search_string.append("ranked_only", "True");
   search_string.append("lang", "en");
 
-  // callbackFetchNextPage(search_string, 1);
-
   await fetchResults(search_string);
-
-  // console.log("final result --> ", finalJsonResult);
 
   return finalJsonResult;
 }
 
 async function fetchResults(search) {
-  for (let page_number = 1; page_number <= 2; page_number++) {
+  // each page will have 5 articles, so 5 * 5 = 25 articles
+  for (let page_number = 1; page_number <= 5; page_number++) {
     search.set("page", page_number);
     await getData(search, page_number);
-    // console.log(finalJsonResult);
   }
 }
 
 module.exports = {
   fetchResults,
-  workWithData,
+  parseResponse,
   getData,
   formSearchString,
 };
