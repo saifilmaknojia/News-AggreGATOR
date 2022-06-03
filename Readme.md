@@ -22,6 +22,8 @@ use - `nodemon index.js` (if nodemon module is installed)
 goto - localhost:3000
 
 <hr>
+
 **Screenshot**
+
 
 ![image](https://user-images.githubusercontent.com/40532567/171778934-84705bac-20a7-4ca3-a433-c222bd891510.png)
