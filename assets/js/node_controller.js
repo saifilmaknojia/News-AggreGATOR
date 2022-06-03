@@ -67,6 +67,7 @@ async function parseResponse(api_data) {
 }
 
 async function formSearchString(body) {
+  // reset the finalResultJson array so that new requests don't get the older results
   finalJsonResult = [];
 
   const search_string = new URLSearchParams();
@@ -109,8 +110,8 @@ async function formSearchString(body) {
 }
 
 async function fetchResults(search) {
-  // each page will have 5 articles, so 6 * 5 = 30 articles
-  for (let page_number = 1; page_number <= 1; page_number++) {
+  // each page will have 5 articles, so 5 * 5 = 25 articles
+  for (let page_number = 1; page_number <= 4; page_number++) {
     search.set("page", page_number);
     await getData(search, page_number);
   }
