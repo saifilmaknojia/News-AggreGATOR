@@ -111,7 +111,7 @@ async function formSearchString(body) {
 
 async function fetchResults(search) {
   // each page will have 5 articles, so 5 * 5 = 25 articles
-  for (let page_number = 1; page_number <= 4; page_number++) {
+  for (let page_number = 1; page_number <= 5; page_number++) {
     search.set("page", page_number);
     await getData(search, page_number);
   }
