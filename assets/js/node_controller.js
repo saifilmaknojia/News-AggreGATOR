@@ -1,23 +1,27 @@
-const fetch = require("node-fetch");
+const axios = require("axios");
 const { config } = require("./config.js");
 
 var finalJsonResult = [];
 
 async function getData(search_params, next_page) {
-  var url = new URL("https://newscatcher.p.rapidapi.com/v1/search");
-  url.search = search_params.toString();
-  await fetch(url, {
+  const options = {
     method: "GET",
+    url: "https://newscatcher.p.rapidapi.com/v1/search",
+    params: search_params,
     headers: {
-      "x-rapidapi-key": config.apiKey,
-      "x-rapidapi-host": "newscatcher.p.rapidapi.com",
+      "X-RapidAPI-Host": "newscatcher.p.rapidapi.com",
+      "X-RapidAPI-Key": "d12f10100bmsh46996f03b09b67fp121b1ejsnbd8566509c22",
     },
-  })
-    .then((response) => response.json())
-    .then((json) => {
-      return workWithData(json, search_params, next_page);
+  };
+
+  await axios
+    .request(options)
+    .then((response) => {
+      //  console.log(response.data);
+      return workWithData(response.data, search_params, next_page);
     })
     .then((articles) => {
+      console.log(articles);
       for (var i = 0; i < articles.length; i++) {
         // clean the data and form the article to push it on the stack
         var obj = articles[i];
@@ -36,7 +40,7 @@ async function getData(search_params, next_page) {
           article_media: cleaned_article_media,
           score: obj["_score"],
         };
-
+        //  console.log(cleaned_article);
         finalJsonResult.push(cleaned_article);
       }
     })
@@ -141,7 +145,8 @@ async function formSearchString(body) {
 }
 
 async function fetchResults(search) {
-  for (let page_number = 1; page_number <= 2; page_number++) {
+  // each page will have 5 articles, so 6 * 5 = 30 articles
+  for (let page_number = 1; page_number <= 6; page_number++) {
     search.set("page", page_number);
     await getData(search, page_number);
     // console.log(finalJsonResult);
